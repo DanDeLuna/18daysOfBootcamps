@@ -1,4 +1,4 @@
-# 18 NoSQL: Social Network API
+# 18daysOfBootcamps
 
 ## Your Task
 
