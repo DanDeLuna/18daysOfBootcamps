@@ -14,6 +14,6 @@ app.use(routes);
 
 db.once('open', () => {
     app.listen(PORT, () => {
-      console.log(`APi is listening to you on server port ${PORT}!`);
+      console.log(`APi is listening on server port ${PORT}!`);
     });
   });
