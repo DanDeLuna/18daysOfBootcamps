@@ -9,16 +9,16 @@ module.exports = {
   
     getOneUsuario(req, res) {
       User.findOne({ _id: req.params.userId })
-        .populate("thoughts")
-        .populate("friends")
-        .select("-__v")
-        .then((usuario) =>
-          !usuario
-            ? res.status(404).json({ message: "No Usuario found with that ID!" })
-            : res.json(usuario)
-        )
-        .catch((err) => res.status(500).json(err))
-    },
+      .populate("thoughts")
+      .populate("friends")
+      .select("-__v")
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No User found with that ID!" })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
   
     createUsuario(req, res) {
       User.create(req.body)
@@ -31,7 +31,7 @@ module.exports = {
   
     updateUsuario(req, res) {
         User.findOneAndUpdate(
-        { _id: req.params.usuarioId },
+        { _id: req.params.userId },
         { $set: req.body },
         { runValidators: true, new: true }
       )
@@ -44,7 +44,7 @@ module.exports = {
     },
   
     deleteUsuario(req, res) {
-        User.findOneAndDelete({ _id: req.params.usuarioId })
+        User.findOneAndDelete({ _id: req.params.userId })
         .then((usuario) =>
           !usuario
             ? res.status(404).json({ message: "No Usuario  with this ID!" })
@@ -56,7 +56,7 @@ module.exports = {
   
     addAmigo(req, res) {
         User.findOneAndUpdate(
-        { _id: req.params.usuarioId },
+        { _id: req.params.userId },
         { $addToSet: { amigo: req.params.amigoId } },
         { runValidators: true, new: true }
       )
@@ -70,7 +70,7 @@ module.exports = {
   
     deleteAmigo(req, res) {
      User.findOneAndUpdate(
-        { _id: req.params.usuarioId },
+        { _id: req.params.userId },
         { $pull: { amigo: req.params.amigoId } },
         { new: true }
       )
