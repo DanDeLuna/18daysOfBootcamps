@@ -1,13 +1,14 @@
-const { Usuario, Thought } = require("../models");
+const {User, Thought } = require("../models");
 module.exports = {
+  
     getUsuario(req, res) {
-        Usuario.find({})
+      User.find({})
         .then((usuario) => res.json(usuario))
         .catch((err) => res.status(500).json(err));
     },
   
     getOneUsuario(req, res) {
-        Usuario.findOne({ _id: req.params.usuarioId })
+      User.findOne({ _id: req.params.userId })
         .populate("thoughts")
         .populate("friends")
         .select("-__v")
@@ -16,20 +17,20 @@ module.exports = {
             ? res.status(404).json({ message: "No Usuario found with that ID!" })
             : res.json(usuario)
         )
-        .catch((err) => res.status(500).json(err));
+        .catch((err) => res.status(500).json(err))
     },
   
     createUsuario(req, res) {
-        Usuario.create(req.body)
+      User.create(req.body)
         .then((usuario) => res.json(usuario))
         .catch((err) => {
           console.log(err);
           return res.status(500).json(err);
-        });
+        })
     },
   
     updateUsuario(req, res) {
-        Usuario.findOneAndUpdate(
+        User.findOneAndUpdate(
         { _id: req.params.usuarioId },
         { $set: req.body },
         { runValidators: true, new: true }
@@ -43,7 +44,7 @@ module.exports = {
     },
   
     deleteUsuario(req, res) {
-        Usuario.findOneAndDelete({ _id: req.params.usuarioId })
+        User.findOneAndDelete({ _id: req.params.usuarioId })
         .then((usuario) =>
           !usuario
             ? res.status(404).json({ message: "No Usuario  with this ID!" })
@@ -54,7 +55,7 @@ module.exports = {
     },
   
     addAmigo(req, res) {
-        Usuario.findOneAndUpdate(
+        User.findOneAndUpdate(
         { _id: req.params.usuarioId },
         { $addToSet: { amigo: req.params.amigoId } },
         { runValidators: true, new: true }
@@ -68,7 +69,7 @@ module.exports = {
     },
   
     deleteAmigo(req, res) {
-     Usuario.findOneAndUpdate(
+     User.findOneAndUpdate(
         { _id: req.params.usuarioId },
         { $pull: { amigo: req.params.amigoId } },
         { new: true }

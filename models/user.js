@@ -43,5 +43,5 @@ const usuarioSchema = new Schema(
 usuarioSchema.virtual("amigoCount").get(function () {
   return this.amigo.length;
 });
-const Usuario = model('User', usuarioSchema);
-module.exports = Usuario;
+const User = model('User', usuarioSchema);
+module.exports = User;
