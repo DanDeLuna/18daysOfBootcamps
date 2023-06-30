@@ -3,7 +3,7 @@ module.exports = {
   
     getUsuario(req, res) {
       User.find({})
-        .then((usuario) => res.json(usuario))
+        .then((user) => res.json(user))
         .catch((err) => res.status(500).json(err));
     },
   

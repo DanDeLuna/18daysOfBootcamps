@@ -10,16 +10,16 @@ const {
     deleteAmigo
 } = require('../../controller/userControll');
 
-// /api/users
+///api/users
 router.route('/').get(getUsuario).post(createUsuario);
 
-// /api/users/:userId
+///api/users/:userId
 router.route('/:userId')
 .get(getOneUsuario)
 .put(updateUsuario)
 .delete(deleteUsuario);
 
-//  /users/:userId/friends/:friendId
+//  friends
 router.route('/:userId/friends/:amigoId')
 .post(addAmigo)
 .delete(deleteAmigo);
